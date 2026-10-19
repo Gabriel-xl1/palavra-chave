@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="fundo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2A4FD0"/>
+      <stop offset="1" stop-color="#0B1A55"/>
+    </linearGradient>
+    <linearGradient id="ouro" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFE68A"/>
+      <stop offset=".55" stop-color="#F7B500"/>
+      <stop offset="1" stop-color="#D98300"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#fundo)"/>
+  <g transform="translate(-22 14) rotate(-35 256 256)">
+    <g fill="url(#ouro)">
+      <rect x="238" y="234" width="212" height="44" rx="10"/>
+      <rect x="352" y="262" width="30" height="62" rx="6"/>
+      <rect x="404" y="262" width="34" height="82" rx="6"/>
+      <circle cx="170" cy="256" r="100"/>
+    </g>
+    <g fill="#0B1A55">
+      <ellipse cx="170" cy="246" rx="60" ry="45"/>
+      <path d="M138 278 L122 314 L172 286 Z"/>
+    </g>
+    <g fill="#FFFFFF">
+      <circle cx="145" cy="246" r="9"/>
+      <circle cx="170" cy="246" r="9"/>
+      <circle cx="195" cy="246" r="9"/>
+    </g>
+  </g>
+</svg>
