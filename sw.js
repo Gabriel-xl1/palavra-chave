@@ -1,6 +1,6 @@
 // Guarda o jogo no celular para funcionar sem internet.
 // Com internet, busca sempre a versão mais nova (com limite de espera); sem internet, usa a cópia guardada.
-const CACHE = "palavra-chave-v1";
+const CACHE = "palavra-chave-v2";
 const ARQUIVOS = [
   "./",
   "index.html",
@@ -9,6 +9,7 @@ const ARQUIVOS = [
   "js/app.js",
   "js/jogo.js",
   "js/palavras.js",
+  "js/sala.js",
   "icons/chave.svg",
   "icons/icone-32.png",
   "icons/icone-180.png",

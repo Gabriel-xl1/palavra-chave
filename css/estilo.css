@@ -259,6 +259,46 @@ button.item-senha { cursor: pointer; }
 .tabela-niveis td { padding: 6px 8px; border-bottom: 1px solid var(--borda); font-weight: 700; }
 .tabela-niveis td:last-child { text-align: right; color: var(--texto-2); }
 
+/* ---------- modo sala ---------- */
+.faixa {
+  background: rgba(239, 68, 68, 0.16); border: 1px solid rgba(239, 68, 68, 0.5); color: #FECACA;
+  border-radius: 12px; padding: 8px 12px; font-weight: 700; font-size: 0.9rem; margin: 0 0 12px;
+}
+.erro { background: rgba(239, 68, 68, 0.16); color: #FECACA; border-radius: 12px; padding: 10px 14px; font-weight: 800; }
+.subtitulo { font-size: 1.1rem; color: var(--ouro-claro); }
+.esperando { display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--texto-2); font-weight: 800; text-align: center; padding: 14px 0; }
+.pontinhos { display: inline-flex; gap: 4px; }
+.pontinhos i { width: 8px; height: 8px; border-radius: 50%; background: var(--ouro); animation: pulo 1s ease-in-out infinite; }
+.pontinhos i:nth-child(2) { animation-delay: 0.15s; }
+.pontinhos i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes pulo { 50% { transform: translateY(-6px); opacity: 0.5; } }
+.codigo-input { text-transform: uppercase; letter-spacing: 0.4em; font-size: 1.6rem !important; text-align: center; font-weight: 900 !important; }
+.convite { gap: 8px; }
+.codigo-grande { font-size: 3.4rem; font-weight: 900; letter-spacing: 0.18em; color: var(--ouro-claro); line-height: 1; }
+.qr { width: 180px; height: 180px; margin: 6px auto; background: #fff; border-radius: 14px; padding: 6px; }
+.qr:empty { display: none; }
+.qr svg { width: 100%; height: 100%; display: block; }
+.pessoas { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.pessoa { display: flex; align-items: center; gap: 10px; background: var(--fundo); border-radius: 12px; padding: 10px 12px; font-weight: 800; }
+.pessoa .nome-pessoa { flex: 1; word-break: break-word; }
+.pessoa i { color: var(--texto-3); font-style: normal; font-weight: 700; }
+.status-online { width: 10px; height: 10px; border-radius: 50%; background: var(--verde); flex: none; }
+.pessoa.fora { opacity: 0.55; }
+.pessoa.fora .status-online { background: var(--texto-3); }
+.mini { width: 32px; height: 32px; border-radius: 10px; border: 1px solid var(--borda); background: var(--cartao-2); color: var(--texto); font-weight: 900; cursor: pointer; }
+.nome-equipe-input {
+  font: inherit; font-weight: 900; font-size: 1.1rem; color: var(--cor);
+  background: transparent; border: 0; border-bottom: 2px dashed color-mix(in srgb, var(--cor) 50%, transparent);
+  padding: 4px 0; width: 100%;
+}
+.nome-equipe-input:focus { outline: none; border-bottom-style: solid; }
+.senha-cartao.oculta { background: linear-gradient(180deg, #2A4FD0, #1A3190); color: #fff; box-shadow: 0 10px 0 rgba(0, 0, 0, 0.25), inset 0 0 0 3px rgba(255, 255, 255, 0.15); }
+.senha-cartao.oculta .rotulo { color: var(--ouro-claro); }
+.senha-cartao.oculta .senha { color: var(--ouro); }
+.senha-cartao.oculta .tentativas { color: #fff; }
+.senha-cartao.oculta .tentativas i { border-color: #fff; }
+.mudo-escuro { font-weight: 700; }
+
 /* ---------- diálogo ---------- */
 dialog {
   border: 1px solid var(--borda); border-radius: 22px; padding: 20px;

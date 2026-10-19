@@ -108,7 +108,39 @@ export function restante(estado, agora) {
   if (!r) return 0;
   if (r.restantePausado != null) return r.restantePausado;
   if (r.fimEm == null) return tempoDaRodada(estado);
-  return Math.max(0, r.fimEm - agora);
+  return Math.min(tempoDaRodada(estado), Math.max(0, r.fimEm - agora));
+}
+
+// Contagem 3, 2, 1 antes do tempo correr (modo com vários celulares).
+export function emContagem(estado, agora) {
+  const r = estado.rodada;
+  return !!r && estado.tela === "jogando" && r.restantePausado == null && r.inicioEm != null && agora < r.inicioEm;
+}
+
+// ---------- papéis (modo com vários celulares) ----------
+// pos = { equipe, jogador } de quem está no celular; null = plateia.
+
+export function papel(estado, pos) {
+  if (!pos) return "plateia";
+  const r = estado.rodada;
+  if (!r || estado.tela === "escolhaDoador" || estado.tela === "escada" || estado.tela === "resultadoBonus") {
+    return "jogador";
+  }
+  if (pos.equipe !== r.equipe) return "fiscal";
+  return pos.jogador === r.doador ? "doador" : "adivinhador";
+}
+
+export function podeAgir(estado, tipo, pos) {
+  if (!pos) return false;
+  const p = papel(estado, pos);
+  const daVez = estado.ordemBonus ? estado.ordemBonus[estado.indiceBonus] : null;
+  switch (tipo) {
+    case "comecar": case "acertou": case "passar": case "errou": return p === "doador";
+    case "anular": case "alternarConferencia": case "confirmarConferencia": return p === "fiscal";
+    case "pausar": case "retomar": case "tempoEsgotado": case "irParaBonus": case "proximaEquipeBonus": return true;
+    case "escolherDoador": case "jogarNivel": case "parar": return pos.equipe === daVez;
+    default: return false;
+  }
 }
 
 export function acertos(rodada) {
@@ -136,19 +168,21 @@ export function agir(estadoAtual, tipo, dados = {}, ctx) {
   switch (tipo) {
     case "comecar":
       if (estado.tela !== "passe") return estadoAtual;
-      r.fimEm = agora + tempoDaRodada(estado);
+      r.inicioEm = agora + (dados.atraso || 0);
+      r.fimEm = r.inicioEm + tempoDaRodada(estado);
       r.restantePausado = null;
       estado.tela = "jogando";
       return estado;
 
     case "pausar":
       if (estado.tela !== "jogando" || r.restantePausado != null) return estadoAtual;
-      r.restantePausado = Math.max(0, r.fimEm - agora);
+      r.restantePausado = Math.min(tempoDaRodada(estado), Math.max(0, r.fimEm - agora));
       return estado;
 
     case "retomar":
       if (estado.tela !== "jogando" || r.restantePausado == null) return estadoAtual;
       r.fimEm = agora + r.restantePausado;
+      r.inicioEm = null;
       r.restantePausado = null;
       return estado;
 
@@ -156,7 +190,9 @@ export function agir(estadoAtual, tipo, dados = {}, ctx) {
     case "passar":
     case "errou":
     case "anular": {
-      if (estado.tela !== "jogando" || r.restantePausado != null) return estadoAtual;
+      if (estado.tela !== "jogando" || r.restantePausado != null || emContagem(estado, agora)) return estadoAtual;
+      // no modo com vários celulares, o toque vale só para a senha que estava na tela
+      if (dados.indice != null && dados.indice !== r.atual) return estadoAtual;
       const p = r.palavras[r.atual];
       if (tipo === "acertou") { p.status = "acerto"; p.acertou = true; p.tentativas++; }
       else if (tipo === "anular") p.status = "anulada";
